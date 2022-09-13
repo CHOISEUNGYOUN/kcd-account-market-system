@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    include:
+      - database
+      - fruit
+    active: local # 기본값으로는 local 사용
