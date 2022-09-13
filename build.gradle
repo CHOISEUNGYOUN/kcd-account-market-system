@@ -33,13 +33,13 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.7.10'
 
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4'
+    implementation "org.mindrot:jbcrypt:0.4"
 
     implementation 'com.querydsl:querydsl-jpa:5.0.0'
     kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
 
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-
 
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
