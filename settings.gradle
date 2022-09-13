@@ -1,1 +1,6 @@
 rootProject.name = 'kcd-account-market'
+include 'admin'
+include 'api'
+include 'core'
+include 'util'
+
