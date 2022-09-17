@@ -1,9 +1,11 @@
 package com.group.kcd.domain.product
 
 import com.group.kcd.domain.BaseEntity
+import com.group.kcd.domain.order.Order
 import javax.persistence.Entity
 import javax.persistence.Table
 import javax.persistence.UniqueConstraint
+import javax.persistence.Version
 
 @Entity
 @Table(
@@ -15,9 +17,24 @@ class Product(
   var remainCount: Int, // 물건의 남은 수량
 ) : BaseEntity() {
 
+  @Version
+  val version: Int = 0
+
   fun update(price: Long, remainCount: Int) {
     this.price = price
     this.remainCount = remainCount
+  }
+
+  fun order(userId: Long, count: Int): Order {
+    require(this.remainCount >= count) { "재고수량이 부족합니다!" }
+    this.remainCount -= count
+
+    return Order(
+      userId = userId,
+      productId = this.id,
+      count = count,
+      totalPrice = this.price * count,
+    )
   }
 
   companion object {

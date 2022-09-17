@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-internal class ProductServiceTest @Autowired constructor(
-  private val productService: ProductService,
+internal class ProductAdminServiceTest @Autowired constructor(
+  private val productAdminService: ProductAdminService,
   private val productRepository: ProductRepository,
 ) {
 
@@ -27,7 +27,7 @@ internal class ProductServiceTest @Autowired constructor(
     val request = ProductCreateRequest("사과", 1000L, 3)
 
     // when
-    productService.createProduct(request)
+    productAdminService.createProduct(request)
 
     // then
     val result = productRepository.findAll()[0]
@@ -41,7 +41,7 @@ internal class ProductServiceTest @Autowired constructor(
     val request = ProductUpdateRequest("사과", 2000L, 100)
 
     // when
-    productService.updateProduct(request)
+    productAdminService.updateProduct(request)
 
     // then
     val result = productRepository.findAll()[0]
@@ -54,7 +54,7 @@ internal class ProductServiceTest @Autowired constructor(
     val product = productRepository.save(Product.fixture("딸기", 500L, 50))
 
     // when
-    productService.deleteProduct(product.id)
+    productAdminService.deleteProduct(product.id)
 
     // then
     assertThat(productRepository.findAll()).isEmpty()
