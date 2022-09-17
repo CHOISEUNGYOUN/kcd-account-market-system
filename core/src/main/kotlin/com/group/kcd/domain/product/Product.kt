@@ -22,9 +22,9 @@ class Product(
 
   companion object {
     fun fixture(
-      name: String,
-      price: Long,
-      remainCount: Int,
+      name: String = "사과",
+      price: Long = 1000,
+      remainCount: Int = 1,
     ): Product {
       return Product(
         name = name,
