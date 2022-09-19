@@ -8,6 +8,7 @@ import com.group.kcd.domain.user.User
 import com.group.kcd.domain.user.UserRepository
 import com.group.kcd.domain.wishproduct.WishProductRepository
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -26,6 +27,13 @@ internal class WishProductApControllerTest @Autowired constructor(
   private val mockMvc: MockMvc,
   private val objectMapper: ObjectMapper,
 ) {
+
+  @AfterEach
+  fun clean() {
+    userRepository.deleteAllInBatch()
+    productRepository.deleteAllInBatch()
+    wishProductRepository.deleteAllInBatch()
+  }
 
   @Test
   fun `Header에 있는 email을 인지하여 물건에 대한 찜을 한다`() {

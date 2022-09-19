@@ -9,6 +9,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -20,6 +22,13 @@ internal class OrderApiServiceTest @Autowired constructor(
   private val orderApiService: OrderApiService,
 ) {
 
+  @AfterEach
+  fun clean() {
+    productRepository.deleteAllInBatch()
+    orderRepository.deleteAllInBatch()
+  }
+
+  @Disabled
   @OptIn(DelicateCoroutinesApi::class)
   @Suppress("BlockingMethodInNonBlockingContext")
   @Test

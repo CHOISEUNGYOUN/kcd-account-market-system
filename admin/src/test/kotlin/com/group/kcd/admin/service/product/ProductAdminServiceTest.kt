@@ -1,7 +1,8 @@
-package com.group.kcd.admin.service
+package com.group.kcd.admin.service.product
 
 import com.group.kcd.admin.dto.product.request.ProductCreateRequest
 import com.group.kcd.admin.dto.product.request.ProductUpdateRequest
+import com.group.kcd.admin.service.product.ProductAdminService
 import com.group.kcd.domain.product.Product
 import com.group.kcd.domain.product.ProductRepository
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat

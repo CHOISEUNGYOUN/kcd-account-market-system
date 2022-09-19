@@ -1,4 +1,4 @@
-package com.group.kcd.admin.service
+package com.group.kcd.admin.service.product
 
 import com.group.kcd.admin.dto.product.request.ProductCreateRequest
 import com.group.kcd.admin.dto.product.request.ProductUpdateRequest

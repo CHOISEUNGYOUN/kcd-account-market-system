@@ -2,6 +2,8 @@ package com.group.kcd.domain.product
 
 import com.group.kcd.domain.BaseEntity
 import com.group.kcd.domain.order.Order
+import com.group.kcd.domain.order.OrderType
+import java.time.LocalDate
 import javax.persistence.Entity
 import javax.persistence.Table
 import javax.persistence.UniqueConstraint
@@ -26,15 +28,34 @@ class Product(
   }
 
   fun order(userId: Long, count: Int): Order {
-    require(this.remainCount >= count) { "재고수량이 부족합니다!" }
-    this.remainCount -= count
-
+    decreaseStock(count)
     return Order(
       userId = userId,
       productId = this.id,
       count = count,
       totalPrice = this.price * count,
     )
+  }
+
+  fun autoOrder(userId: Long, txDate: LocalDate): Order {
+    decreaseStock(1)
+    return Order(
+      userId = userId,
+      productId = this.id,
+      count = 1,
+      totalPrice = this.price,
+      txDate = txDate,
+      type = OrderType.AUTO_FROM_NET_INCOME,
+    )
+  }
+
+  private fun decreaseStock(count: Int) {
+    require(this.remainCount >= count) { "재고수량이 부족합니다!" }
+    this.remainCount -= count
+  }
+
+  fun cancelOrder(order: Order) {
+    this.remainCount += order.count
   }
 
   companion object {

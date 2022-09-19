@@ -2,7 +2,7 @@ package com.group.kcd.admin.controller.product
 
 import com.group.kcd.admin.dto.product.request.ProductCreateRequest
 import com.group.kcd.admin.dto.product.request.ProductUpdateRequest
-import com.group.kcd.admin.service.ProductAdminService
+import com.group.kcd.admin.service.product.ProductAdminService
 import org.springframework.web.bind.annotation.*
 
 @RestController
