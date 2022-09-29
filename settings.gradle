@@ -3,4 +3,6 @@ include 'admin'
 include 'api'
 include 'core'
 include 'util'
+include 'scheduler'
+include 'batch'
 

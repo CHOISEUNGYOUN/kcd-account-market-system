@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    include:
+      - database
+    active: local # 기본값으로는 local 사용

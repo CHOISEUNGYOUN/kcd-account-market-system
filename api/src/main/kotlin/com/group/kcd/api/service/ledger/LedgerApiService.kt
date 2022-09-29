@@ -2,6 +2,7 @@ package com.group.kcd.api.service.ledger
 
 import com.group.kcd.api.dto.ledger.request.LedgerCreateRequest
 import com.group.kcd.api.dto.ledger.request.LedgerDeleteRequest
+import com.group.kcd.api.dto.ledger.response.LedgerSummaryResponse
 import com.group.kcd.api.repository.ledger.LedgerApiRepository
 import com.group.kcd.api.repository.order.OrderApiRepository
 import com.group.kcd.api.service.order.OrderApiService
@@ -61,6 +62,13 @@ class LedgerApiService(
     if (ledgers.netIncome < AUTO_ORDER_THRESHOLD_AMOUNT && orderOrNull != null) {
       orderApiService.deleteAutoOrder(orderOrNull.id)
     }
+  }
+
+  @Transactional(readOnly = true)
+  fun getLedgerSummaryResponses(year: Int, month: Int, userId: Long): List<LedgerSummaryResponse> {
+    val startDate = LocalDate.of(year, month, 1)
+    val endDate = LocalDate.of(year, month + 1, 1).minusDays(1)
+    return ledgerApiRepository.getSummary(userId, startDate, endDate)
   }
 
 }
