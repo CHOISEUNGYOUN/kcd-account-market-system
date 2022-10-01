@@ -4,16 +4,15 @@ import com.group.kcd.api.dto.order.request.OrderCreateRequest
 import com.group.kcd.domain.order.OrderRepository
 import com.group.kcd.domain.product.Product
 import com.group.kcd.domain.product.ProductRepository
-import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import java.util.concurrent.Executors.newFixedThreadPool
 
 @SpringBootTest
 internal class OrderApiServiceTest @Autowired constructor(
@@ -28,8 +27,7 @@ internal class OrderApiServiceTest @Autowired constructor(
     orderRepository.deleteAllInBatch()
   }
 
-  @Disabled
-  @OptIn(DelicateCoroutinesApi::class)
+  // @Disabled
   @Suppress("BlockingMethodInNonBlockingContext")
   @Test
   fun `100개의 수량에 대해 200건의 주문이 동시에 몰리면 100건만 성공한다`(): Unit = runBlocking {
@@ -39,7 +37,7 @@ internal class OrderApiServiceTest @Autowired constructor(
 
     // when
     val jobs = (1..200).map {
-      launch(newFixedThreadPoolContext(10, "test-threadpool")) {
+      launch(newFixedThreadPool(10).asCoroutineDispatcher()) {
         kotlin.runCatching { orderApiService.orderProduct(request, 1L) }
       }
     }

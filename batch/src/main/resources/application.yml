@@ -3,3 +3,8 @@ spring:
     include:
       - database
     active: local # 기본값으로는 local 사용
+  batch:
+    job:
+      names: ${job.name:NONE}
+  main:
+    web-application-type: none

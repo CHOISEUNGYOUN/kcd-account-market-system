@@ -32,7 +32,8 @@ class LedgerApiRepository(
           ledger.type,
           ledger.amount.sum()
         )
-      ).from(ledger)
+      )
+      .from(ledger)
       .where(
         ledger.userId.eq(userId),
         ledger.txDate.between(startDate, endDate)

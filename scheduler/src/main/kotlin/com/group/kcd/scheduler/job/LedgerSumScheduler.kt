@@ -6,6 +6,10 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.Scheduled
 import java.time.LocalDate
 
+/**
+ * 단점 모니터링 없음 ㅠㅠㅠ.. (= 재시작/중단 불가)
+ * 실패하면 그냥 지나감
+ */
 @Configuration
 class LedgerSumScheduler(
   private val ledgerSumSchedulerService: LedgerSumSchedulerService,
